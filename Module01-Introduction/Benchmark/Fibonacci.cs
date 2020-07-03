@@ -19,14 +19,6 @@ namespace Dotnetos.AsyncExpert.Homework.Module01.Benchmark
         //
         // You can use the discussion panel to compare your results with other students
 
-        private readonly ulong?[] _fibonacciValues = new ulong?[1000];
-
-        public FibonacciCalc()
-        {
-            _fibonacciValues[0] = 0;
-            _fibonacciValues[1] = 1;
-        }
-
         [Benchmark(Baseline = true)]
         [ArgumentsSource(nameof(Data))]
         public ulong Recursive(ulong n)
@@ -39,11 +31,19 @@ namespace Dotnetos.AsyncExpert.Homework.Module01.Benchmark
         [ArgumentsSource(nameof(Data))]
         public ulong RecursiveWithMemoization(ulong n)
         {
-            var val = _fibonacciValues[n];
+            var fibValues = new ulong?[n * 2];
+            fibValues[0] = 0;
+            fibValues[1] = 1;
+            return RecursiveWithMemorization(n, fibValues);
+        }
+
+        private ulong RecursiveWithMemorization(ulong n, ulong?[] memory)
+        {
+            var val = memory[n];
             if (!val.HasValue)
             {
-                val = RecursiveWithMemoization(n - 1) + RecursiveWithMemoization(n - 2);
-                _fibonacciValues[n] = val;
+                val = RecursiveWithMemorization(n - 1, memory) + RecursiveWithMemorization(n - 2, memory);
+                memory[n] = val;
             }
             return val.Value;
         }

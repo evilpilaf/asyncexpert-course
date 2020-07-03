@@ -38,49 +38,88 @@ M00_L01:
 ## .NET Core 3.1.2 (CoreCLR 4.700.20.6602, CoreFX 4.700.20.6702), X64 RyuJIT
 ```assembly
 ; Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemoization(UInt64)
+       push      rdi
+       push      rsi
+       sub       rsp,28
+       mov       rdi,rcx
+       mov       rsi,rdx
+       mov       rdx,rsi
+       shl       rdx,1
+       test      rdx,rdx
+       jl        short M00_L00
+       mov       rcx,offset MT_System.Nullable`1[[System.UInt64, System.Private.CoreLib]][]
+       call      CORINFO_HELP_NEWARR_1_VC
+       mov       ecx,1
+       mov       edx,[rax+8]
+       cmp       edx,0
+       jbe       short M00_L01
+       lea       r8,[rax+10]
+       mov       [r8],cl
+       xor       ecx,ecx
+       mov       [r8+8],rcx
+       mov       ecx,1
+       cmp       edx,1
+       jbe       short M00_L01
+       lea       rdx,[rax+20]
+       mov       [rdx],cl
+       mov       qword ptr [rdx+8],1
+       mov       rcx,rdi
+       mov       rdx,rsi
+       mov       r8,rax
+       mov       rax,offset Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
+       add       rsp,28
+       pop       rsi
+       pop       rdi
+       jmp       rax
+M00_L00:
+       call      CORINFO_HELP_OVERFLOW
+       int       3
+M00_L01:
+       call      CORINFO_HELP_RNGCHKFAIL
+       int       3
+; Total bytes of code 128
+```
+```assembly
+; Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
        push      r14
        push      rdi
        push      rsi
        push      rbp
        push      rbx
        sub       rsp,20
-       mov       rsi,rcx
+       mov       rbx,rcx
        mov       rdi,rdx
-       mov       rdx,[rsi+8]
+       mov       rsi,r8
        test      rdi,rdi
-       jl        short M00_L01
-       mov       rbx,rdi
-       mov       ecx,[rdx+8]
+       jl        short M01_L01
+       mov       rdx,rdi
+       mov       ecx,[rsi+8]
        movsxd    rcx,ecx
-       cmp       rbx,rcx
-       jae       short M00_L03
-       mov       rbp,rbx
-       shl       rbp,4
-       lea       rdx,[rdx+rbp+10]
+       cmp       rdx,rcx
+       jae       short M01_L03
+       shl       rdx,4
+       lea       rbp,[rsi+rdx+10]
+       mov       rdx,rbp
        movzx     r14d,byte ptr [rdx]
        mov       rax,[rdx+8]
        test      r14b,r14b
-       jne       short M00_L00
+       jne       short M01_L00
        lea       rdx,[rdi+0FFFF]
-       mov       rcx,rsi
-       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemoization(UInt64)
+       mov       rcx,rbx
+       mov       r8,rsi
+       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
        mov       r14,rax
        lea       rdx,[rdi+0FFFE]
-       mov       rcx,rsi
-       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemoization(UInt64)
+       mov       rcx,rbx
+       mov       r8,rsi
+       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
        add       rax,r14
        mov       r14d,1
-       mov       rdx,[rsi+8]
-       mov       ecx,[rdx+8]
-       movsxd    rcx,ecx
-       cmp       rbx,rcx
-       jae       short M00_L03
-       lea       rdx,[rdx+rbp+10]
-       mov       [rdx],r14b
-       mov       [rdx+8],rax
-M00_L00:
+       mov       [rbp],r14b
+       mov       [rbp+8],rax
+M01_L00:
        test      r14b,r14b
-       je        short M00_L02
+       je        short M01_L02
        add       rsp,20
        pop       rbx
        pop       rbp
@@ -88,18 +127,16 @@ M00_L00:
        pop       rdi
        pop       r14
        ret
-M00_L01:
+M01_L01:
        call      CORINFO_HELP_OVERFLOW
-M00_L02:
+M01_L02:
        call      System.ThrowHelper.ThrowInvalidOperationException_InvalidOperation_NoValue()
        int       3
-M00_L03:
+M01_L03:
        call      CORINFO_HELP_RNGCHKFAIL
        int       3
-; Total bytes of code 160
+; Total bytes of code 146
 ```
-**Method was not JITted yet.**
-System.ThrowHelper.ThrowInvalidOperationException_InvalidOperation_NoValue()
 
 ## .NET Core 3.1.2 (CoreCLR 4.700.20.6602, CoreFX 4.700.20.6702), X64 RyuJIT
 ```assembly
@@ -176,49 +213,86 @@ M00_L01:
 ## .NET Core 5.0.0 (CoreCLR 5.0.20.27801, CoreFX 5.0.20.27801), X64 RyuJIT
 ```assembly
 ; Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemoization(UInt64)
+       push      rdi
+       push      rsi
+       sub       rsp,28
+       mov       rdi,rcx
+       mov       rsi,rdx
+       lea       rdx,[rsi+rsi]
+       test      rdx,rdx
+       jl        short M00_L00
+       mov       rcx,offset MT_System.Nullable`1[[System.UInt64, System.Private.CoreLib]][]
+       call      CORINFO_HELP_NEWARR_1_VC
+       mov       ecx,1
+       mov       edx,[rax+8]
+       cmp       edx,0
+       jbe       short M00_L01
+       lea       r8,[rax+10]
+       mov       [r8],cl
+       xor       ecx,ecx
+       mov       [r8+8],rcx
+       mov       ecx,1
+       cmp       edx,1
+       jbe       short M00_L01
+       lea       rdx,[rax+20]
+       mov       [rdx],cl
+       mov       qword ptr [rdx+8],1
+       mov       rcx,rdi
+       mov       rdx,rsi
+       mov       r8,rax
+       add       rsp,28
+       pop       rsi
+       pop       rdi
+       jmp       near ptr Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
+M00_L00:
+       call      CORINFO_HELP_OVERFLOW
+       int       3
+M00_L01:
+       call      CORINFO_HELP_RNGCHKFAIL
+       int       3
+; Total bytes of code 118
+```
+```assembly
+; Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
        push      r14
        push      rdi
        push      rsi
        push      rbp
        push      rbx
        sub       rsp,20
-       mov       rsi,rcx
+       mov       rbx,rcx
        mov       rdi,rdx
-       mov       rdx,[rsi+8]
+       mov       rsi,r8
        test      rdi,rdi
-       jl        short M00_L01
-       mov       rbx,rdi
-       mov       ecx,[rdx+8]
+       jl        short M01_L01
+       mov       rdx,rdi
+       mov       ecx,[rsi+8]
        movsxd    rcx,ecx
-       cmp       rbx,rcx
-       jae       short M00_L03
-       mov       rbp,rbx
-       shl       rbp,4
-       lea       rdx,[rdx+rbp+10]
+       cmp       rdx,rcx
+       jae       short M01_L03
+       shl       rdx,4
+       lea       rbp,[rsi+rdx+10]
+       mov       rdx,rbp
        movzx     r14d,byte ptr [rdx]
        mov       rax,[rdx+8]
        test      r14b,r14b
-       jne       short M00_L00
+       jne       short M01_L00
        lea       rdx,[rdi+0FFFF]
-       mov       rcx,rsi
-       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemoization(UInt64)
+       mov       rcx,rbx
+       mov       r8,rsi
+       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
        mov       r14,rax
        lea       rdx,[rdi+0FFFE]
-       mov       rcx,rsi
-       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemoization(UInt64)
+       mov       rcx,rbx
+       mov       r8,rsi
+       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
        add       rax,r14
        mov       r14d,1
-       mov       rdx,[rsi+8]
-       mov       ecx,[rdx+8]
-       movsxd    rcx,ecx
-       cmp       rbx,rcx
-       jae       short M00_L03
-       lea       rdx,[rdx+rbp+10]
-       mov       [rdx],r14b
-       mov       [rdx+8],rax
-M00_L00:
+       mov       [rbp],r14b
+       mov       [rbp+8],rax
+M01_L00:
        test      r14b,r14b
-       je        short M00_L02
+       je        short M01_L02
        add       rsp,20
        pop       rbx
        pop       rbp
@@ -226,18 +300,16 @@ M00_L00:
        pop       rdi
        pop       r14
        ret
-M00_L01:
+M01_L01:
        call      CORINFO_HELP_OVERFLOW
-M00_L02:
+M01_L02:
        call      System.ThrowHelper.ThrowInvalidOperationException_InvalidOperation_NoValue()
        int       3
-M00_L03:
+M01_L03:
        call      CORINFO_HELP_RNGCHKFAIL
        int       3
-; Total bytes of code 160
+; Total bytes of code 146
 ```
-**Method was not JITted yet.**
-System.ThrowHelper.ThrowInvalidOperationException_InvalidOperation_NoValue()
 
 ## .NET Core 5.0.0 (CoreCLR 5.0.20.27801, CoreFX 5.0.20.27801), X64 RyuJIT
 ```assembly
@@ -314,49 +386,88 @@ M00_L01:
 ## .NET Core 3.1.2 (CoreCLR 4.700.20.6602, CoreFX 4.700.20.6702), X64 RyuJIT
 ```assembly
 ; Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemoization(UInt64)
+       push      rdi
+       push      rsi
+       sub       rsp,28
+       mov       rdi,rcx
+       mov       rsi,rdx
+       mov       rdx,rsi
+       shl       rdx,1
+       test      rdx,rdx
+       jl        short M00_L00
+       mov       rcx,offset MT_System.Nullable`1[[System.UInt64, System.Private.CoreLib]][]
+       call      CORINFO_HELP_NEWARR_1_VC
+       mov       ecx,1
+       mov       edx,[rax+8]
+       cmp       edx,0
+       jbe       short M00_L01
+       lea       r8,[rax+10]
+       mov       [r8],cl
+       xor       ecx,ecx
+       mov       [r8+8],rcx
+       mov       ecx,1
+       cmp       edx,1
+       jbe       short M00_L01
+       lea       rdx,[rax+20]
+       mov       [rdx],cl
+       mov       qword ptr [rdx+8],1
+       mov       rcx,rdi
+       mov       rdx,rsi
+       mov       r8,rax
+       mov       rax,offset Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
+       add       rsp,28
+       pop       rsi
+       pop       rdi
+       jmp       rax
+M00_L00:
+       call      CORINFO_HELP_OVERFLOW
+       int       3
+M00_L01:
+       call      CORINFO_HELP_RNGCHKFAIL
+       int       3
+; Total bytes of code 128
+```
+```assembly
+; Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
        push      r14
        push      rdi
        push      rsi
        push      rbp
        push      rbx
        sub       rsp,20
-       mov       rsi,rcx
+       mov       rbx,rcx
        mov       rdi,rdx
-       mov       rdx,[rsi+8]
+       mov       rsi,r8
        test      rdi,rdi
-       jl        short M00_L01
-       mov       rbx,rdi
-       mov       ecx,[rdx+8]
+       jl        short M01_L01
+       mov       rdx,rdi
+       mov       ecx,[rsi+8]
        movsxd    rcx,ecx
-       cmp       rbx,rcx
-       jae       short M00_L03
-       mov       rbp,rbx
-       shl       rbp,4
-       lea       rdx,[rdx+rbp+10]
+       cmp       rdx,rcx
+       jae       short M01_L03
+       shl       rdx,4
+       lea       rbp,[rsi+rdx+10]
+       mov       rdx,rbp
        movzx     r14d,byte ptr [rdx]
        mov       rax,[rdx+8]
        test      r14b,r14b
-       jne       short M00_L00
+       jne       short M01_L00
        lea       rdx,[rdi+0FFFF]
-       mov       rcx,rsi
-       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemoization(UInt64)
+       mov       rcx,rbx
+       mov       r8,rsi
+       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
        mov       r14,rax
        lea       rdx,[rdi+0FFFE]
-       mov       rcx,rsi
-       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemoization(UInt64)
+       mov       rcx,rbx
+       mov       r8,rsi
+       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
        add       rax,r14
        mov       r14d,1
-       mov       rdx,[rsi+8]
-       mov       ecx,[rdx+8]
-       movsxd    rcx,ecx
-       cmp       rbx,rcx
-       jae       short M00_L03
-       lea       rdx,[rdx+rbp+10]
-       mov       [rdx],r14b
-       mov       [rdx+8],rax
-M00_L00:
+       mov       [rbp],r14b
+       mov       [rbp+8],rax
+M01_L00:
        test      r14b,r14b
-       je        short M00_L02
+       je        short M01_L02
        add       rsp,20
        pop       rbx
        pop       rbp
@@ -364,18 +475,16 @@ M00_L00:
        pop       rdi
        pop       r14
        ret
-M00_L01:
+M01_L01:
        call      CORINFO_HELP_OVERFLOW
-M00_L02:
+M01_L02:
        call      System.ThrowHelper.ThrowInvalidOperationException_InvalidOperation_NoValue()
        int       3
-M00_L03:
+M01_L03:
        call      CORINFO_HELP_RNGCHKFAIL
        int       3
-; Total bytes of code 160
+; Total bytes of code 146
 ```
-**Method was not JITted yet.**
-System.ThrowHelper.ThrowInvalidOperationException_InvalidOperation_NoValue()
 
 ## .NET Core 3.1.2 (CoreCLR 4.700.20.6602, CoreFX 4.700.20.6702), X64 RyuJIT
 ```assembly
@@ -452,49 +561,86 @@ M00_L01:
 ## .NET Core 5.0.0 (CoreCLR 5.0.20.27801, CoreFX 5.0.20.27801), X64 RyuJIT
 ```assembly
 ; Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemoization(UInt64)
+       push      rdi
+       push      rsi
+       sub       rsp,28
+       mov       rdi,rcx
+       mov       rsi,rdx
+       lea       rdx,[rsi+rsi]
+       test      rdx,rdx
+       jl        short M00_L00
+       mov       rcx,offset MT_System.Nullable`1[[System.UInt64, System.Private.CoreLib]][]
+       call      CORINFO_HELP_NEWARR_1_VC
+       mov       ecx,1
+       mov       edx,[rax+8]
+       cmp       edx,0
+       jbe       short M00_L01
+       lea       r8,[rax+10]
+       mov       [r8],cl
+       xor       ecx,ecx
+       mov       [r8+8],rcx
+       mov       ecx,1
+       cmp       edx,1
+       jbe       short M00_L01
+       lea       rdx,[rax+20]
+       mov       [rdx],cl
+       mov       qword ptr [rdx+8],1
+       mov       rcx,rdi
+       mov       rdx,rsi
+       mov       r8,rax
+       add       rsp,28
+       pop       rsi
+       pop       rdi
+       jmp       near ptr Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
+M00_L00:
+       call      CORINFO_HELP_OVERFLOW
+       int       3
+M00_L01:
+       call      CORINFO_HELP_RNGCHKFAIL
+       int       3
+; Total bytes of code 118
+```
+```assembly
+; Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
        push      r14
        push      rdi
        push      rsi
        push      rbp
        push      rbx
        sub       rsp,20
-       mov       rsi,rcx
+       mov       rbx,rcx
        mov       rdi,rdx
-       mov       rdx,[rsi+8]
+       mov       rsi,r8
        test      rdi,rdi
-       jl        short M00_L01
-       mov       rbx,rdi
-       mov       ecx,[rdx+8]
+       jl        short M01_L01
+       mov       rdx,rdi
+       mov       ecx,[rsi+8]
        movsxd    rcx,ecx
-       cmp       rbx,rcx
-       jae       short M00_L03
-       mov       rbp,rbx
-       shl       rbp,4
-       lea       rdx,[rdx+rbp+10]
+       cmp       rdx,rcx
+       jae       short M01_L03
+       shl       rdx,4
+       lea       rbp,[rsi+rdx+10]
+       mov       rdx,rbp
        movzx     r14d,byte ptr [rdx]
        mov       rax,[rdx+8]
        test      r14b,r14b
-       jne       short M00_L00
+       jne       short M01_L00
        lea       rdx,[rdi+0FFFF]
-       mov       rcx,rsi
-       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemoization(UInt64)
+       mov       rcx,rbx
+       mov       r8,rsi
+       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
        mov       r14,rax
        lea       rdx,[rdi+0FFFE]
-       mov       rcx,rsi
-       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemoization(UInt64)
+       mov       rcx,rbx
+       mov       r8,rsi
+       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
        add       rax,r14
        mov       r14d,1
-       mov       rdx,[rsi+8]
-       mov       ecx,[rdx+8]
-       movsxd    rcx,ecx
-       cmp       rbx,rcx
-       jae       short M00_L03
-       lea       rdx,[rdx+rbp+10]
-       mov       [rdx],r14b
-       mov       [rdx+8],rax
-M00_L00:
+       mov       [rbp],r14b
+       mov       [rbp+8],rax
+M01_L00:
        test      r14b,r14b
-       je        short M00_L02
+       je        short M01_L02
        add       rsp,20
        pop       rbx
        pop       rbp
@@ -502,18 +648,16 @@ M00_L00:
        pop       rdi
        pop       r14
        ret
-M00_L01:
+M01_L01:
        call      CORINFO_HELP_OVERFLOW
-M00_L02:
+M01_L02:
        call      System.ThrowHelper.ThrowInvalidOperationException_InvalidOperation_NoValue()
        int       3
-M00_L03:
+M01_L03:
        call      CORINFO_HELP_RNGCHKFAIL
        int       3
-; Total bytes of code 160
+; Total bytes of code 146
 ```
-**Method was not JITted yet.**
-System.ThrowHelper.ThrowInvalidOperationException_InvalidOperation_NoValue()
 
 ## .NET Core 5.0.0 (CoreCLR 5.0.20.27801, CoreFX 5.0.20.27801), X64 RyuJIT
 ```assembly
@@ -590,49 +734,88 @@ M00_L01:
 ## .NET Core 3.1.2 (CoreCLR 4.700.20.6602, CoreFX 4.700.20.6702), X64 RyuJIT
 ```assembly
 ; Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemoization(UInt64)
+       push      rdi
+       push      rsi
+       sub       rsp,28
+       mov       rdi,rcx
+       mov       rsi,rdx
+       mov       rdx,rsi
+       shl       rdx,1
+       test      rdx,rdx
+       jl        short M00_L00
+       mov       rcx,offset MT_System.Nullable`1[[System.UInt64, System.Private.CoreLib]][]
+       call      CORINFO_HELP_NEWARR_1_VC
+       mov       ecx,1
+       mov       edx,[rax+8]
+       cmp       edx,0
+       jbe       short M00_L01
+       lea       r8,[rax+10]
+       mov       [r8],cl
+       xor       ecx,ecx
+       mov       [r8+8],rcx
+       mov       ecx,1
+       cmp       edx,1
+       jbe       short M00_L01
+       lea       rdx,[rax+20]
+       mov       [rdx],cl
+       mov       qword ptr [rdx+8],1
+       mov       rcx,rdi
+       mov       rdx,rsi
+       mov       r8,rax
+       mov       rax,offset Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
+       add       rsp,28
+       pop       rsi
+       pop       rdi
+       jmp       rax
+M00_L00:
+       call      CORINFO_HELP_OVERFLOW
+       int       3
+M00_L01:
+       call      CORINFO_HELP_RNGCHKFAIL
+       int       3
+; Total bytes of code 128
+```
+```assembly
+; Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
        push      r14
        push      rdi
        push      rsi
        push      rbp
        push      rbx
        sub       rsp,20
-       mov       rsi,rcx
+       mov       rbx,rcx
        mov       rdi,rdx
-       mov       rdx,[rsi+8]
+       mov       rsi,r8
        test      rdi,rdi
-       jl        short M00_L01
-       mov       rbx,rdi
-       mov       ecx,[rdx+8]
+       jl        short M01_L01
+       mov       rdx,rdi
+       mov       ecx,[rsi+8]
        movsxd    rcx,ecx
-       cmp       rbx,rcx
-       jae       short M00_L03
-       mov       rbp,rbx
-       shl       rbp,4
-       lea       rdx,[rdx+rbp+10]
+       cmp       rdx,rcx
+       jae       short M01_L03
+       shl       rdx,4
+       lea       rbp,[rsi+rdx+10]
+       mov       rdx,rbp
        movzx     r14d,byte ptr [rdx]
        mov       rax,[rdx+8]
        test      r14b,r14b
-       jne       short M00_L00
+       jne       short M01_L00
        lea       rdx,[rdi+0FFFF]
-       mov       rcx,rsi
-       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemoization(UInt64)
+       mov       rcx,rbx
+       mov       r8,rsi
+       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
        mov       r14,rax
        lea       rdx,[rdi+0FFFE]
-       mov       rcx,rsi
-       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemoization(UInt64)
+       mov       rcx,rbx
+       mov       r8,rsi
+       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
        add       rax,r14
        mov       r14d,1
-       mov       rdx,[rsi+8]
-       mov       ecx,[rdx+8]
-       movsxd    rcx,ecx
-       cmp       rbx,rcx
-       jae       short M00_L03
-       lea       rdx,[rdx+rbp+10]
-       mov       [rdx],r14b
-       mov       [rdx+8],rax
-M00_L00:
+       mov       [rbp],r14b
+       mov       [rbp+8],rax
+M01_L00:
        test      r14b,r14b
-       je        short M00_L02
+       je        short M01_L02
        add       rsp,20
        pop       rbx
        pop       rbp
@@ -640,18 +823,16 @@ M00_L00:
        pop       rdi
        pop       r14
        ret
-M00_L01:
+M01_L01:
        call      CORINFO_HELP_OVERFLOW
-M00_L02:
+M01_L02:
        call      System.ThrowHelper.ThrowInvalidOperationException_InvalidOperation_NoValue()
        int       3
-M00_L03:
+M01_L03:
        call      CORINFO_HELP_RNGCHKFAIL
        int       3
-; Total bytes of code 160
+; Total bytes of code 146
 ```
-**Method was not JITted yet.**
-System.ThrowHelper.ThrowInvalidOperationException_InvalidOperation_NoValue()
 
 ## .NET Core 3.1.2 (CoreCLR 4.700.20.6602, CoreFX 4.700.20.6702), X64 RyuJIT
 ```assembly
@@ -728,49 +909,86 @@ M00_L01:
 ## .NET Core 5.0.0 (CoreCLR 5.0.20.27801, CoreFX 5.0.20.27801), X64 RyuJIT
 ```assembly
 ; Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemoization(UInt64)
+       push      rdi
+       push      rsi
+       sub       rsp,28
+       mov       rdi,rcx
+       mov       rsi,rdx
+       lea       rdx,[rsi+rsi]
+       test      rdx,rdx
+       jl        short M00_L00
+       mov       rcx,offset MT_System.Nullable`1[[System.UInt64, System.Private.CoreLib]][]
+       call      CORINFO_HELP_NEWARR_1_VC
+       mov       ecx,1
+       mov       edx,[rax+8]
+       cmp       edx,0
+       jbe       short M00_L01
+       lea       r8,[rax+10]
+       mov       [r8],cl
+       xor       ecx,ecx
+       mov       [r8+8],rcx
+       mov       ecx,1
+       cmp       edx,1
+       jbe       short M00_L01
+       lea       rdx,[rax+20]
+       mov       [rdx],cl
+       mov       qword ptr [rdx+8],1
+       mov       rcx,rdi
+       mov       rdx,rsi
+       mov       r8,rax
+       add       rsp,28
+       pop       rsi
+       pop       rdi
+       jmp       near ptr Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
+M00_L00:
+       call      CORINFO_HELP_OVERFLOW
+       int       3
+M00_L01:
+       call      CORINFO_HELP_RNGCHKFAIL
+       int       3
+; Total bytes of code 118
+```
+```assembly
+; Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
        push      r14
        push      rdi
        push      rsi
        push      rbp
        push      rbx
        sub       rsp,20
-       mov       rsi,rcx
+       mov       rbx,rcx
        mov       rdi,rdx
-       mov       rdx,[rsi+8]
+       mov       rsi,r8
        test      rdi,rdi
-       jl        short M00_L01
-       mov       rbx,rdi
-       mov       ecx,[rdx+8]
+       jl        short M01_L01
+       mov       rdx,rdi
+       mov       ecx,[rsi+8]
        movsxd    rcx,ecx
-       cmp       rbx,rcx
-       jae       short M00_L03
-       mov       rbp,rbx
-       shl       rbp,4
-       lea       rdx,[rdx+rbp+10]
+       cmp       rdx,rcx
+       jae       short M01_L03
+       shl       rdx,4
+       lea       rbp,[rsi+rdx+10]
+       mov       rdx,rbp
        movzx     r14d,byte ptr [rdx]
        mov       rax,[rdx+8]
        test      r14b,r14b
-       jne       short M00_L00
+       jne       short M01_L00
        lea       rdx,[rdi+0FFFF]
-       mov       rcx,rsi
-       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemoization(UInt64)
+       mov       rcx,rbx
+       mov       r8,rsi
+       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
        mov       r14,rax
        lea       rdx,[rdi+0FFFE]
-       mov       rcx,rsi
-       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemoization(UInt64)
+       mov       rcx,rbx
+       mov       r8,rsi
+       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
        add       rax,r14
        mov       r14d,1
-       mov       rdx,[rsi+8]
-       mov       ecx,[rdx+8]
-       movsxd    rcx,ecx
-       cmp       rbx,rcx
-       jae       short M00_L03
-       lea       rdx,[rdx+rbp+10]
-       mov       [rdx],r14b
-       mov       [rdx+8],rax
-M00_L00:
+       mov       [rbp],r14b
+       mov       [rbp+8],rax
+M01_L00:
        test      r14b,r14b
-       je        short M00_L02
+       je        short M01_L02
        add       rsp,20
        pop       rbx
        pop       rbp
@@ -778,18 +996,16 @@ M00_L00:
        pop       rdi
        pop       r14
        ret
-M00_L01:
+M01_L01:
        call      CORINFO_HELP_OVERFLOW
-M00_L02:
+M01_L02:
        call      System.ThrowHelper.ThrowInvalidOperationException_InvalidOperation_NoValue()
        int       3
-M00_L03:
+M01_L03:
        call      CORINFO_HELP_RNGCHKFAIL
        int       3
-; Total bytes of code 160
+; Total bytes of code 146
 ```
-**Method was not JITted yet.**
-System.ThrowHelper.ThrowInvalidOperationException_InvalidOperation_NoValue()
 
 ## .NET Core 5.0.0 (CoreCLR 5.0.20.27801, CoreFX 5.0.20.27801), X64 RyuJIT
 ```assembly
@@ -866,49 +1082,88 @@ M00_L01:
 ## .NET Core 3.1.2 (CoreCLR 4.700.20.6602, CoreFX 4.700.20.6702), X64 RyuJIT
 ```assembly
 ; Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemoization(UInt64)
+       push      rdi
+       push      rsi
+       sub       rsp,28
+       mov       rdi,rcx
+       mov       rsi,rdx
+       mov       rdx,rsi
+       shl       rdx,1
+       test      rdx,rdx
+       jl        short M00_L00
+       mov       rcx,offset MT_System.Nullable`1[[System.UInt64, System.Private.CoreLib]][]
+       call      CORINFO_HELP_NEWARR_1_VC
+       mov       ecx,1
+       mov       edx,[rax+8]
+       cmp       edx,0
+       jbe       short M00_L01
+       lea       r8,[rax+10]
+       mov       [r8],cl
+       xor       ecx,ecx
+       mov       [r8+8],rcx
+       mov       ecx,1
+       cmp       edx,1
+       jbe       short M00_L01
+       lea       rdx,[rax+20]
+       mov       [rdx],cl
+       mov       qword ptr [rdx+8],1
+       mov       rcx,rdi
+       mov       rdx,rsi
+       mov       r8,rax
+       mov       rax,offset Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
+       add       rsp,28
+       pop       rsi
+       pop       rdi
+       jmp       rax
+M00_L00:
+       call      CORINFO_HELP_OVERFLOW
+       int       3
+M00_L01:
+       call      CORINFO_HELP_RNGCHKFAIL
+       int       3
+; Total bytes of code 128
+```
+```assembly
+; Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
        push      r14
        push      rdi
        push      rsi
        push      rbp
        push      rbx
        sub       rsp,20
-       mov       rsi,rcx
+       mov       rbx,rcx
        mov       rdi,rdx
-       mov       rdx,[rsi+8]
+       mov       rsi,r8
        test      rdi,rdi
-       jl        short M00_L01
-       mov       rbx,rdi
-       mov       ecx,[rdx+8]
+       jl        short M01_L01
+       mov       rdx,rdi
+       mov       ecx,[rsi+8]
        movsxd    rcx,ecx
-       cmp       rbx,rcx
-       jae       short M00_L03
-       mov       rbp,rbx
-       shl       rbp,4
-       lea       rdx,[rdx+rbp+10]
+       cmp       rdx,rcx
+       jae       short M01_L03
+       shl       rdx,4
+       lea       rbp,[rsi+rdx+10]
+       mov       rdx,rbp
        movzx     r14d,byte ptr [rdx]
        mov       rax,[rdx+8]
        test      r14b,r14b
-       jne       short M00_L00
+       jne       short M01_L00
        lea       rdx,[rdi+0FFFF]
-       mov       rcx,rsi
-       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemoization(UInt64)
+       mov       rcx,rbx
+       mov       r8,rsi
+       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
        mov       r14,rax
        lea       rdx,[rdi+0FFFE]
-       mov       rcx,rsi
-       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemoization(UInt64)
+       mov       rcx,rbx
+       mov       r8,rsi
+       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
        add       rax,r14
        mov       r14d,1
-       mov       rdx,[rsi+8]
-       mov       ecx,[rdx+8]
-       movsxd    rcx,ecx
-       cmp       rbx,rcx
-       jae       short M00_L03
-       lea       rdx,[rdx+rbp+10]
-       mov       [rdx],r14b
-       mov       [rdx+8],rax
-M00_L00:
+       mov       [rbp],r14b
+       mov       [rbp+8],rax
+M01_L00:
        test      r14b,r14b
-       je        short M00_L02
+       je        short M01_L02
        add       rsp,20
        pop       rbx
        pop       rbp
@@ -916,18 +1171,16 @@ M00_L00:
        pop       rdi
        pop       r14
        ret
-M00_L01:
+M01_L01:
        call      CORINFO_HELP_OVERFLOW
-M00_L02:
+M01_L02:
        call      System.ThrowHelper.ThrowInvalidOperationException_InvalidOperation_NoValue()
        int       3
-M00_L03:
+M01_L03:
        call      CORINFO_HELP_RNGCHKFAIL
        int       3
-; Total bytes of code 160
+; Total bytes of code 146
 ```
-**Method was not JITted yet.**
-System.ThrowHelper.ThrowInvalidOperationException_InvalidOperation_NoValue()
 
 ## .NET Core 3.1.2 (CoreCLR 4.700.20.6602, CoreFX 4.700.20.6702), X64 RyuJIT
 ```assembly
@@ -1004,49 +1257,86 @@ M00_L01:
 ## .NET Core 5.0.0 (CoreCLR 5.0.20.27801, CoreFX 5.0.20.27801), X64 RyuJIT
 ```assembly
 ; Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemoization(UInt64)
+       push      rdi
+       push      rsi
+       sub       rsp,28
+       mov       rdi,rcx
+       mov       rsi,rdx
+       lea       rdx,[rsi+rsi]
+       test      rdx,rdx
+       jl        short M00_L00
+       mov       rcx,offset MT_System.Nullable`1[[System.UInt64, System.Private.CoreLib]][]
+       call      CORINFO_HELP_NEWARR_1_VC
+       mov       ecx,1
+       mov       edx,[rax+8]
+       cmp       edx,0
+       jbe       short M00_L01
+       lea       r8,[rax+10]
+       mov       [r8],cl
+       xor       ecx,ecx
+       mov       [r8+8],rcx
+       mov       ecx,1
+       cmp       edx,1
+       jbe       short M00_L01
+       lea       rdx,[rax+20]
+       mov       [rdx],cl
+       mov       qword ptr [rdx+8],1
+       mov       rcx,rdi
+       mov       rdx,rsi
+       mov       r8,rax
+       add       rsp,28
+       pop       rsi
+       pop       rdi
+       jmp       near ptr Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
+M00_L00:
+       call      CORINFO_HELP_OVERFLOW
+       int       3
+M00_L01:
+       call      CORINFO_HELP_RNGCHKFAIL
+       int       3
+; Total bytes of code 118
+```
+```assembly
+; Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
        push      r14
        push      rdi
        push      rsi
        push      rbp
        push      rbx
        sub       rsp,20
-       mov       rsi,rcx
+       mov       rbx,rcx
        mov       rdi,rdx
-       mov       rdx,[rsi+8]
+       mov       rsi,r8
        test      rdi,rdi
-       jl        short M00_L01
-       mov       rbx,rdi
-       mov       ecx,[rdx+8]
+       jl        short M01_L01
+       mov       rdx,rdi
+       mov       ecx,[rsi+8]
        movsxd    rcx,ecx
-       cmp       rbx,rcx
-       jae       short M00_L03
-       mov       rbp,rbx
-       shl       rbp,4
-       lea       rdx,[rdx+rbp+10]
+       cmp       rdx,rcx
+       jae       short M01_L03
+       shl       rdx,4
+       lea       rbp,[rsi+rdx+10]
+       mov       rdx,rbp
        movzx     r14d,byte ptr [rdx]
        mov       rax,[rdx+8]
        test      r14b,r14b
-       jne       short M00_L00
+       jne       short M01_L00
        lea       rdx,[rdi+0FFFF]
-       mov       rcx,rsi
-       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemoization(UInt64)
+       mov       rcx,rbx
+       mov       r8,rsi
+       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
        mov       r14,rax
        lea       rdx,[rdi+0FFFE]
-       mov       rcx,rsi
-       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemoization(UInt64)
+       mov       rcx,rbx
+       mov       r8,rsi
+       call      Dotnetos.AsyncExpert.Homework.Module01.Benchmark.FibonacciCalc.RecursiveWithMemorization(UInt64, System.Nullable`1<UInt64>[])
        add       rax,r14
        mov       r14d,1
-       mov       rdx,[rsi+8]
-       mov       ecx,[rdx+8]
-       movsxd    rcx,ecx
-       cmp       rbx,rcx
-       jae       short M00_L03
-       lea       rdx,[rdx+rbp+10]
-       mov       [rdx],r14b
-       mov       [rdx+8],rax
-M00_L00:
+       mov       [rbp],r14b
+       mov       [rbp+8],rax
+M01_L00:
        test      r14b,r14b
-       je        short M00_L02
+       je        short M01_L02
        add       rsp,20
        pop       rbx
        pop       rbp
@@ -1054,18 +1344,16 @@ M00_L00:
        pop       rdi
        pop       r14
        ret
-M00_L01:
+M01_L01:
        call      CORINFO_HELP_OVERFLOW
-M00_L02:
+M01_L02:
        call      System.ThrowHelper.ThrowInvalidOperationException_InvalidOperation_NoValue()
        int       3
-M00_L03:
+M01_L03:
        call      CORINFO_HELP_RNGCHKFAIL
        int       3
-; Total bytes of code 160
+; Total bytes of code 146
 ```
-**Method was not JITted yet.**
-System.ThrowHelper.ThrowInvalidOperationException_InvalidOperation_NoValue()
 
 ## .NET Core 5.0.0 (CoreCLR 5.0.20.27801, CoreFX 5.0.20.27801), X64 RyuJIT
 ```assembly
