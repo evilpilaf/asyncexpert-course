@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,8 +23,50 @@ namespace AsyncAwaitExercises.Core
             // * `HttpClient.GetAsync` does not accept cancellation token (use `GetAsync` instead)
             // * you may use `EnsureSuccessStatusCode()` method
 
-            return string.Empty;
-        }
+            if (maxTries < 2)
+            {
+                throw new ArgumentException("The value must be greater than 2", nameof(maxTries));
+            }
 
+            var isFaulted = true;
+            Exception lastException = null;
+            var currentTry = 0;
+
+            var waitTime = TimeSpan.FromSeconds(1);
+            var responseText = string.Empty;
+
+            while (currentTry < maxTries && isFaulted)
+            {
+                if (token.IsCancellationRequested)
+                {
+                    throw new TaskCanceledException();
+                }
+
+                try
+                {
+                    using var request = new HttpRequestMessage(HttpMethod.Get, new Uri(url));
+                    using var response = await client.SendAsync(request, token);
+                    response.EnsureSuccessStatusCode();
+                    isFaulted = false;
+                    responseText = await response.Content.ReadAsStringAsync();
+                }
+                catch (Exception ex)
+                {
+                    isFaulted = true;
+                    lastException = ex;
+                    await Task.Delay(waitTime, token);
+                    waitTime *= 2;
+                    currentTry++;
+                }
+            }
+
+            if (isFaulted)
+            {
+                Debug.Assert(lastException != null, nameof(lastException) + " != null");
+                throw lastException;
+            }
+
+            return responseText;
+        }
     }
 }
