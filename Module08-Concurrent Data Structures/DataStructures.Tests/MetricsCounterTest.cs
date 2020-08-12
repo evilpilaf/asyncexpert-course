@@ -44,7 +44,7 @@ namespace DataStructures.Tests
             foreach (var (key, count) in counter)
             {
                 Assert.AreEqual(ValueCount * ConcurrentWriters, count);
-                Assert.IsTrue(toObserve.Remove(key), "A key that does not exist!");    
+                Assert.IsTrue(toObserve.Remove(key), "A key that does not exist!");
             }
 
             CollectionAssert.IsEmpty(toObserve);
