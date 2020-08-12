@@ -16,24 +16,18 @@ namespace LowLevelExercises.Core
 
         public void Report(int value)
         {
-            // TODO: how to increment sum + count without locking?
-            lock (sync)
-            {
-                sum += value;
-                count += 1;
-            }
+            Interlocked.Increment(ref count);
+            Interlocked.Add(ref sum, value);
         }
 
         public double Average
         {
             get
             {
-                // TODO: how to access the values in a lock-free way?
-                // let's assume that we can return value estimated on a bit stale data(in time average will be less and less diverged)
-                lock (sync)
-                {
-                    return Calculate(count, sum);
-                }
+                var localSum = Volatile.Read(ref sum);
+                var localCount = Volatile.Read(ref count);
+
+                return Calculate(localCount, localSum);
             }
         }
 
